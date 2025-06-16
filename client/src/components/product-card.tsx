@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { formatPrice } from "@/lib/api";
-import { ImageIcon, Edit, Trash2, ShoppingCart, Heart, Star, Eye } from "lucide-react";
+import { ImageIcon, Edit, Trash2, ShoppingCart, Heart, Star, Eye, TrendingUp } from "lucide-react";
 import { useState } from "react";
 
 interface ProductCardProps {
@@ -55,25 +55,26 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
 
   return (
     <Card 
-      className="group relative overflow-hidden glass hover:shadow-glow-hover transition-all duration-500 transform hover:-translate-y-2 rounded-2xl border-0"
+      className="group relative overflow-hidden glass hover:shadow-glow-hover transition-all duration-500 transform hover:-translate-y-2 rounded-2xl border-0 animate-fade-in card-hover"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Status badges */}
-      <div className="absolute top-4 left-4 z-10 flex gap-2">
+      <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
         {!isActive && (
-          <Badge variant="secondary" className="bg-gray-500/90 text-white">
+          <Badge variant="secondary" className="bg-gray-500/90 text-white backdrop-blur-sm animate-pulse">
             Tidak Aktif
           </Badge>
         )}
         {isOutOfStock && (
-          <Badge variant="destructive" className="bg-red-500/90 text-white">
+          <Badge variant="destructive" className="bg-red-500/90 text-white backdrop-blur-sm animate-pulse">
             Stok Habis
           </Badge>
         )}
         {stock > 0 && stock <= 5 && (
-          <Badge variant="destructive" className="bg-orange-500/90 text-white">
-            Stok Terbatas
+          <Badge variant="destructive" className="bg-orange-500/90 text-white backdrop-blur-sm">
+            <TrendingUp className="w-3 h-3 mr-1" />
+            Terbatas
           </Badge>
         )}
       </div>
@@ -83,13 +84,15 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
         <Button
           variant="ghost"
           size="sm"
-          className={`absolute top-4 right-4 z-10 w-8 h-8 rounded-full glass ${isLiked ? 'text-red-500' : 'text-gray-600'} hover:scale-110 transition-all duration-200`}
+          className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full glass backdrop-blur-sm ${
+            isLiked ? 'text-red-500 bg-red-50' : 'text-gray-600 hover:text-red-500'
+          } hover:scale-110 transition-all duration-200 shadow-lg`}
           onClick={(e) => {
             e.stopPropagation();
             setIsLiked(!isLiked);
           }}
         >
-          <Heart className={`h-4 w-4 ${isLiked ? 'fill-current' : ''}`} />
+          <Heart className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
         </Button>
       )}
       
@@ -126,13 +129,13 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
         </div>
         
         {/* Interactive overlay buttons */}
-        <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-center pb-4 gap-2 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+        <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-center pb-6 gap-3 transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
           {!isOwner && (
             <>
               <Button
                 size="sm"
                 variant="secondary"
-                className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-800"
+                className="bg-white/90 backdrop-blur-sm hover:bg-white text-gray-800 rounded-xl shadow-lg hover:scale-105 transition-all"
                 onClick={() => {}}
               >
                 <Eye className="h-4 w-4" />
@@ -140,7 +143,9 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
               <Button
                 size="sm"
                 variant="secondary"
-                className={`backdrop-blur-sm transition-colors ${isLiked ? 'bg-red-500 hover:bg-red-600 text-white' : 'bg-white/90 hover:bg-white text-gray-800'}`}
+                className={`backdrop-blur-sm transition-all rounded-xl shadow-lg hover:scale-105 ${
+                  isLiked ? 'bg-red-500 hover:bg-red-600 text-white' : 'bg-white/90 hover:bg-white text-gray-800'
+                }`}
                 onClick={() => setIsLiked(!isLiked)}
               >
                 <Heart className={`h-4 w-4 ${isLiked ? 'fill-current' : ''}`} />
@@ -151,31 +156,17 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
         
         {/* Stock out overlay */}
         {isOutOfStock && (
-          <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
-            <div className="bg-red-500 text-white px-4 py-2 rounded-lg font-semibold text-sm">
+          <div className="absolute inset-0 bg-black/70 flex items-center justify-center backdrop-blur-sm">
+            <div className="bg-red-500 text-white px-6 py-3 rounded-xl font-semibold text-sm shadow-lg">
               Stok Habis
             </div>
           </div>
         )}
-        
-        {/* Status badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-2">
-          {stock <= 5 && stock > 0 && (
-            <Badge className="bg-orange-500 hover:bg-orange-600 text-white shadow-lg">
-              Terbatas
-            </Badge>
-          )}
-          {isOwner && (
-            <Badge variant={isActive ? "default" : "secondary"} className="shadow-lg">
-              {isActive ? "✓ Aktif" : "⚠ Nonaktif"}
-            </Badge>
-          )}
-        </div>
 
         {/* Category badge */}
         {category && (
           <div className="absolute top-3 right-3">
-            <Badge variant="outline" className="bg-white/90 backdrop-blur-sm border-white/20 text-gray-700 shadow-lg">
+            <Badge variant="outline" className="bg-white/90 backdrop-blur-sm border-white/20 text-gray-700 shadow-lg rounded-lg">
               {category}
             </Badge>
           </div>
@@ -183,8 +174,8 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
       </div>
       
       <CardContent className="p-6 space-y-4">
-        <div className="space-y-2">
-          <h3 className="font-bold text-xl text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">
+        <div className="space-y-3">
+          <h3 className="font-bold text-xl text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300 text-shadow">
             {productName}
           </h3>
           <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
@@ -193,7 +184,7 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
         </div>
         
         {/* Price section with attractive styling */}
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div className="flex justify-between items-end">
             <div className="space-y-1">
               <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-500 bg-clip-text text-transparent">
@@ -205,9 +196,9 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
               <div className="text-sm font-medium text-gray-700">
                 {stock} tersisa
               </div>
-              <div className="flex-1 bg-gray-200 rounded-full h-1 w-16 mt-1">
+              <div className="flex-1 bg-gray-200 rounded-full h-2 w-16 mt-1 overflow-hidden">
                 <div 
-                  className={`h-1 rounded-full transition-all duration-300 ${
+                  className={`h-2 rounded-full transition-all duration-500 ${
                     stock > 10 ? "bg-green-500" : stock > 5 ? "bg-yellow-500" : "bg-red-500"
                   }`}
                   style={{ width: `${Math.min((stock / 20) * 100, 100)}%` }}
@@ -221,12 +212,12 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`h-4 w-4 ${
+                className={`h-4 w-4 transition-colors ${
                   i < 4 ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
                 }`}
               />
             ))}
-            <span className="text-sm text-gray-500 ml-1">(4.0)</span>
+            <span className="text-sm text-gray-500 ml-2">(4.0)</span>
           </div>
         </div>
         
@@ -236,26 +227,26 @@ export function ProductCard({ product, onOrder, onEdit, onDelete, isOwner = fals
             <Button
               variant="outline"
               size="lg"
-              className="flex-1 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition-all duration-200"
+              className="flex-1 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300 transition-all duration-200 rounded-xl group"
               onClick={() => onEdit?.(product)}
             >
-              <Edit className="h-4 w-4 mr-2" />
+              <Edit className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
               Edit
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="flex-1 text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-300 transition-all duration-200"
+              className="flex-1 text-red-600 hover:text-red-700 hover:bg-red-50 hover:border-red-300 transition-all duration-200 rounded-xl group"
               onClick={() => onDelete?.(productId)}
             >
-              <Trash2 className="h-4 w-4 mr-2" />
+              <Trash2 className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
               Hapus
             </Button>
           </div>
         ) : (
           <Button
             size="lg"
-            className={`w-full transition-all duration-300 font-semibold ${
+            className={`w-full transition-all duration-300 font-semibold rounded-xl ${
               !isOutOfStock && isActive
                 ? "bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 shadow-lg hover:shadow-xl transform hover:scale-105"
                 : "bg-gray-400 cursor-not-allowed"
