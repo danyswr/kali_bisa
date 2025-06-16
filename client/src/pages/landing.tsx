@@ -1,59 +1,106 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Store, ShoppingCart, TrendingUp, Star, Shield, Zap, Users, Award, CheckCircle } from "lucide-react";
+import { Store, ShoppingCart, TrendingUp, Star, Shield, Zap, Users, Award, CheckCircle, ArrowRight, ChefHat, Clock, MapPin } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Landing() {
+  const features = [
+    {
+      icon: <Store className="h-8 w-8 text-primary" />,
+      title: "Marketplace Terpercaya",
+      description: "Platform yang aman dan terpercaya untuk jual beli katering dengan sistem verifikasi lengkap."
+    },
+    {
+      icon: <ChefHat className="h-8 w-8 text-primary" />,
+      title: "Chef Profesional",
+      description: "Kerjasama dengan chef berpengalaman untuk menjamin kualitas makanan terbaik."
+    },
+    {
+      icon: <Clock className="h-8 w-8 text-primary" />,
+      title: "Pengiriman Tepat Waktu",
+      description: "Sistem logistik terintegrasi untuk memastikan pesanan tiba sesuai jadwal."
+    },
+    {
+      icon: <Shield className="h-8 w-8 text-primary" />,
+      title: "Keamanan Terjamin",
+      description: "Transaksi aman dengan sistem pembayaran yang terenkripsi dan terlindungi."
+    },
+    {
+      icon: <Users className="h-8 w-8 text-primary" />,
+      title: "Komunitas Besar",
+      description: "Bergabung dengan ribuan penjual dan pembeli di seluruh Indonesia."
+    },
+    {
+      icon: <Award className="h-8 w-8 text-primary" />,
+      title: "Kualitas Premium",
+      description: "Standar kualitas tinggi dengan review dan rating dari pelanggan nyata."
+    }
+  ];
+
+  const stats = [
+    { number: "10K+", label: "Pengguna Aktif" },
+    { number: "500+", label: "Penjual Terdaftar" },
+    { number: "50K+", label: "Pesanan Selesai" },
+    { number: "4.8/5", label: "Rating Kepuasan" }
+  ];
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/10">
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/10 min-h-screen flex items-center">
         <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-32">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center space-y-8">
-            <div className="space-y-4">
-              <Badge variant="secondary" className="px-4 py-2 text-sm font-medium animate-pulse-slow">
-                ✨ Platform E-Commerce Terdepan
+            <div className="space-y-6">
+              <Badge variant="secondary" className="px-6 py-3 text-sm font-medium animate-pulse-slow shadow-lg">
+                ✨ Platform E-Commerce Katering Terdepan di Indonesia
               </Badge>
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight">
-                <span className="block">Selamat Datang di</span>
-                <span className="block gradient-text animate-gradient">UPJ Katering</span>
+
+              <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold tracking-tight">
+                <span className="block text-foreground">Selamat Datang di</span>
+                <span className="block gradient-text animate-gradient bg-gradient-to-r from-primary via-blue-600 to-primary bg-[length:200%_auto]">
+                  UPJ Katering
+                </span>
               </h1>
-              <p className="max-w-3xl mx-auto text-xl sm:text-2xl text-muted-foreground leading-relaxed">
-                Platform marketplace modern yang menghubungkan penjual dan pembeli 
-                dengan teknologi terdepan dan pengalaman yang luar biasa
+
+              <p className="max-w-4xl mx-auto text-xl sm:text-2xl text-muted-foreground leading-relaxed">
+                Platform marketplace modern yang menghubungkan penjual dan pembeli katering dengan teknologi terdepan dan pengalaman yang luar biasa. Temukan cita rasa terbaik untuk setiap acara Anda.
               </p>
             </div>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-              <Link href="/auth?mode=register&role=seller">
-                <Button size="lg" className="group gradient-bg text-white hover:shadow-glow-hover transition-all duration-300 px-8 py-4 text-lg font-semibold">
-                  <Store className="mr-2 h-5 w-5 group-hover:animate-float" />
-                  Mulai Berjualan
+              <Link href="/auth?mode=seller">
+                <Button size="lg" className="group px-8 py-4 text-lg font-semibold shadow-glow-hover transform hover:scale-105 transition-all duration-300">
+                  <Store className="mr-3 h-6 w-6 group-hover:animate-bounce" />
+                  Mulai Jual Katering
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Link href="/auth?mode=register&role=buyer">
-                <Button size="lg" variant="outline" className="border-2 hover:bg-primary/5 transition-all duration-300 px-8 py-4 text-lg font-semibold">
-                  <ShoppingCart className="mr-2 h-5 w-5" />
-                  Mulai Berbelanja
+
+              <Link href="/auth?mode=buyer">
+                <Button variant="outline" size="lg" className="group px-8 py-4 text-lg font-semibold border-2 hover:border-primary hover:bg-primary/5 transform hover:scale-105 transition-all duration-300">
+                  <ShoppingCart className="mr-3 h-6 w-6 group-hover:animate-bounce" />
+                  Pesan Katering Sekarang
                 </Button>
               </Link>
             </div>
 
-            <div className="pt-12 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">1000+</div>
-                <div className="text-muted-foreground">Produk Tersedia</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">500+</div>
-                <div className="text-muted-foreground">Penjual Aktif</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary">5000+</div>
-                <div className="text-muted-foreground">Transaksi Sukses</div>
-              </div>
+            {/* Stats Section */}
+            <div className="pt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((stat, index) => (
+                <div key={index} className="text-center group">
+                  <div className="text-3xl md:text-4xl font-bold text-primary group-hover:scale-110 transition-transform duration-300">
+                    {stat.number}
+                  </div>
+                  <div className="text-sm md:text-base text-muted-foreground font-medium">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -62,227 +109,86 @@ export default function Landing() {
       {/* Features Section */}
       <section className="py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold">Mengapa Memilih Kami?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Fitur-fitur unggulan yang membuat pengalaman jual beli Anda lebih mudah dan menyenangkan
+          <div className="text-center mb-16">
+            <Badge variant="outline" className="mb-4">
+              Mengapa Memilih Kami
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Fitur <span className="gradient-text">Unggulan</span> Kami
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Berbagai keunggulan yang membuat UPJ Katering menjadi pilihan terbaik untuk kebutuhan katering Anda
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto group-hover:animate-float">
-                  <Store className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Jual Produk Mudah</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Interface yang intuitif untuk mengelola produk, stok, dan penjualan dengan mudah
-                </p>
-                <div className="flex justify-center">
-                  <Badge variant="secondary">Mudah Digunakan</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto group-hover:animate-float">
-                  <ShoppingCart className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Belanja Aman</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Sistem keamanan berlapis dan perlindungan pembeli yang terjamin untuk setiap transaksi
-                </p>
-                <div className="flex justify-center">
-                  <Badge variant="secondary">100% Aman</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto group-hover:animate-float">
-                  <TrendingUp className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Analitik Bisnis</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Dashboard komprehensif dengan laporan penjualan dan insight bisnis yang mendalam
-                </p>
-                <div className="flex justify-center">
-                  <Badge variant="secondary">Data Driven</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto group-hover:animate-float">
-                  <Shield className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Keamanan Terjamin</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Enkripsi end-to-end dan sistem keamanan tingkat enterprise untuk melindungi data Anda
-                </p>
-                <div className="flex justify-center">
-                  <Badge variant="secondary">Enterprise Grade</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto group-hover:animate-float">
-                  <Zap className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Performa Cepat</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Loading super cepat dan responsif di semua perangkat untuk pengalaman yang optimal
-                </p>
-                <div className="flex justify-center">
-                  <Badge variant="secondary">Lightning Fast</Badge>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border-0 shadow-lg">
-              <CardContent className="p-8 text-center space-y-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto group-hover:animate-float">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Komunitas Aktif</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Bergabung dengan ribuan penjual dan pembeli dalam ekosistem yang saling mendukung
-                </p>
-                <div className="flex justify-center">
-                  <Badge variant="secondary">Community Driven</Badge>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold">Apa Kata Mereka?</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Testimoni dari para pengguna yang telah merasakan manfaat platform kami
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8 space-y-4">
-                <div className="flex items-center space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground italic">
-                  "Platform yang sangat mudah digunakan! Dalam seminggu saja penjualan saya meningkat drastis."
-                </p>
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold">AS</span>
+            {features.map((feature, index) => (
+              <Card key={index} className="group hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-2 border-0 bg-background/60 backdrop-blur-sm">
+                <CardContent className="p-8">
+                  <div className="mb-6 p-3 bg-primary/10 rounded-xl w-fit group-hover:bg-primary/20 transition-colors duration-300">
+                    {feature.icon}
                   </div>
-                  <div>
-                    <div className="font-semibold">Ahmad Santoso</div>
-                    <div className="text-sm text-muted-foreground">Penjual Elektronik</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8 space-y-4">
-                <div className="flex items-center space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground italic">
-                  "Belanja di sini sangat aman dan nyaman. Produknya beragam dengan kualitas terjamin."
-                </p>
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold">SR</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold">Siti Rahmawati</div>
-                    <div className="text-sm text-muted-foreground">Pembeli Setia</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8 space-y-4">
-                <div className="flex items-center space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground italic">
-                  "Dashboard analitiknya membantu saya memahami tren penjualan dan mengembangkan bisnis."
-                </p>
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center">
-                    <span className="text-white font-semibold">BP</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold">Budi Pratama</div>
-                    <div className="text-sm text-muted-foreground">Penjual Fashion</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors duration-300">
+                    {feature.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-primary to-primary/90">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-24 relative overflow-hidden">
+        <div className="absolute inset-0 gradient-bg opacity-90"></div>
+        <div className="absolute inset-0 bg-black/20"></div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-3xl lg:text-4xl font-bold text-white">
-                Siap Memulai Perjalanan Anda?
-              </h2>
-              <p className="text-xl text-white/90 max-w-2xl mx-auto">
-                Bergabunglah dengan ribuan penjual dan pembeli yang telah merasakan kemudahan platform kami
-              </p>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/auth?mode=register&role=seller">
-                <Button size="lg" variant="secondary" className="px-8 py-4 text-lg font-semibold hover:shadow-lg transition-all duration-300">
-                  <Store className="mr-2 h-5 w-5" />
+            <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+              Bergabung Sekarang
+            </Badge>
+
+            <h2 className="text-4xl md:text-6xl font-bold text-white">
+              Siap Memulai Bisnis Katering Anda?
+            </h2>
+
+            <p className="text-xl text-white/90 max-w-3xl mx-auto">
+              Bergabunglah dengan ribuan penjual dan pembeli yang telah merasakan kemudahan bertransaksi di platform kami. Daftar sekarang dan nikmati berbagai keuntungan eksklusif!
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8">
+              <Link href="/auth?mode=seller">
+                <Button size="lg" variant="secondary" className="group px-10 py-4 text-lg font-semibold bg-white text-primary hover:bg-white/90 shadow-2xl transform hover:scale-105 transition-all duration-300">
+                  <Store className="mr-3 h-6 w-6 group-hover:animate-bounce" />
                   Daftar Sebagai Penjual
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
-              <Link href="/auth?mode=register&role=buyer">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold transition-all duration-300">
-                  <ShoppingCart className="mr-2 h-5 w-5" />
+
+              <Link href="/auth?mode=buyer">
+                <Button size="lg" variant="outline" className="group px-10 py-4 text-lg font-semibold border-2 border-white text-white hover:bg-white hover:text-primary transform hover:scale-105 transition-all duration-300">
+                  <ShoppingCart className="mr-3 h-6 w-6 group-hover:animate-bounce" />
                   Daftar Sebagai Pembeli
                 </Button>
               </Link>
             </div>
 
-            <div className="pt-8 flex justify-center items-center space-x-8 text-white/80">
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5" />
-                <span>Gratis Selamanya</span>
+            <div className="pt-12 flex justify-center items-center space-x-12 text-white/80">
+              <div className="flex items-center space-x-3">
+                <CheckCircle className="h-6 w-6" />
+                <span className="text-lg">Gratis Selamanya</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5" />
-                <span>Tanpa Biaya Setup</span>
+              <div className="flex items-center space-x-3">
+                <CheckCircle className="h-6 w-6" />
+                <span className="text-lg">Tanpa Biaya Setup</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5" />
-                <span>Support 24/7</span>
+              <div className="flex items-center space-x-3">
+                <CheckCircle className="h-6 w-6" />
+                <span className="text-lg">Support 24/7</span>
               </div>
             </div>
           </div>
